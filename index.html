@@ -176,6 +176,10 @@ function renderCart(){
     "🛒 Total: Rp " + total.toLocaleString();
 }
 
+document.getElementById("cart").innerHTML =
+    "🛒 Total: Rp " + total.toLocaleString();
+}
+
 renderProducts();
 
 function addToCart(index){
@@ -208,6 +212,7 @@ function checkout(){
 </body>
 
 </html>
+
 
 
 
