@@ -178,7 +178,15 @@ function renderCart(){
 
 renderProducts();
 
+function addToCart(index){
+  const product = products[index];
+  const message = `Halo, saya mau beli ${product.name} - Rp ${product.price.toLocaleString()}`;
+  const url = `https://wa.me/6283821423730?text=${encodeURIComponent(message)}`;
+  window.open(url);
+}
+
 </script>
 
 </body>
+
 </html>
