@@ -185,8 +185,29 @@ function addToCart(index){
   window.open(url);
 }
 
+function checkout(){
+  if(cart.length === 0){
+    alert("Keranjang masih kosong!");
+    return;
+  }
+
+  let message = "Halo, saya mau beli:\n\n";
+
+  cart.forEach(item => {
+    message += `- ${item.name} Rp ${item.price.toLocaleString()}\n`;
+  });
+
+  let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+  message += `\nTotal: Rp ${total.toLocaleString()}`;
+
+  const url = `https://wa.me/6283821423730?text=${encodeURIComponent(message)}`;
+  window.open(url);
+}
+
 </script>
 
 </body>
 
 </html>
+
