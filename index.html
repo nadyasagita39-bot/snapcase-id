@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AshCase ID</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#ffffff;
+  color:rgb(9, 9, 9);
+}
+
+header{
+  background:#f1a3d7(255, 255, 255);
+  padding:20px;
+  text-align:center;
+  font-size:26px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+.controls{
+  padding:20px;
+  text-align:center;
+}
+
+input[type="text"]{
+  padding:8px;
+  width:200px;
+}
+
+select{
+  padding:8px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  padding:20px;
+}
+
+.card{
+  background:#f1a3d7;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+}
+
+.card img{
+  width:100%;
+  border-radius:8px;
+}
+
+.price{
+  color:#ffffff;
+  font-weight:bold;
+}
+
+button{
+  background:#ffffff;
+  border:none;
+  padding:8px;
+  width:100%;
+  margin-top:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.checkout{
+  background:#fffefe;
+  margin:20px;
+  padding:20px;
+  border-radius:10px;
+}
+
+.checkout input, .checkout select{
+  width:100%;
+  padding:8px;
+  margin-top:8px;
+}
+
+.total{
+  margin-top:10px;
+  font-weight:bold;
+  color:#000000;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  transition:0.3s;
+}
+
+button:hover{
+  background:#f1a3d7;
+}
+</style>
+</head>
+
+<body>
+
+<header>ASHCASE ID</header>
+<div id="cart" style="text-align:center; padding:10px; font-size:18px;">
+🛒 Total: Rp 0
+</div>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="Cari produk..." onkeyup="renderProducts()">
+  
+  <select id="filter" onchange="renderProducts()">
+    <option value="all">Semua</option>
+    <option value="iphone">iPhone</option>
+    <option value="samsung">Samsung</option>
+    <option value="custom">Custom</option>
+  </select>
+</div>
+
+<div class="products" id="productList"></div>
+
+<div class="checkout">
+  <h3>Checkout</h3>
+  <input type="text" id="nama" placeholder="Nama Lengkap">
+  <input type="text" id="alamat" placeholder="Alamat Lengkap">
+
+  <select id="kota" onchange="updateTotal()">
+    <option value="10000">Jakarta - Ongkir 10.000</option>
+    <option value="15000">Bandung - Ongkir 15.000</option>
+    <option value="20000">Surabaya - Ongkir 20.000</option>
+  </select>
+
+  <div class="total" id="total">Total: Rp 0</div>
+  <button onclick="checkout()">Checkout via WhatsApp</button>
+</div>
+
+<script>
+
+const products = [
+  {name:"spicy margs phone case", price:10000, img:"p1.jpg"},
+  {name:"you me phone case", price:10000, img:"p2.jpg"},
+  {name:"bon appetit iphone case", price:10000, img:"p3.jpg"},
+  {name:"tres bien phone case", price:10000, img:"p4.jpg"},
+  {name:"lucky you phone case", price:10000, img:"p5.jpg"},
+  {name:"someone please call 911 pink phone case", price:10000, img:"p6.jpg"}
+];
+
+let cart = [];
+
+function renderProducts(){
+  const container = document.getElementById("productList");
+  container.innerHTML = "";
+
+  products.forEach((p, index)=>{
+    container.innerHTML += `
+      <div class="card">
+        <img src="${p.img}">
+        <h3>${p.name}</h3>
+        <p class="price">Rp ${p.price.toLocaleString()}</p>
+        <button onclick="addToCart(${index})">Beli</button>
+      </div>
+    `;
+  });
+}
+
+function addToCart(index){
+  cart.push(products[index]);
+  renderCart();
+}
+
+function renderCart(){
+  let total = 0;
+  cart.forEach(item => total += item.price);
+
+  document.getElementById("cart").innerHTML =
+    "🛒 Total: Rp " + total.toLocaleString();
+}
+
+renderProducts();
+
+</script>
+
+</body>
+</html>
